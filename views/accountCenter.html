@@ -1,0 +1,192 @@
+{{template "header"}}
+<div class="row">
+            <div class="col-md-12">
+              <div class="widget box">
+                <div class="widget-header">
+                  <h4>
+                    <i class="icon-reorder">
+                    </i>
+                    公众账号管理
+                  </h4>
+                  <div class="toolbar no-padding">
+                    <div class="btn-group">
+                      <span class="btn btn-xs widget-collapse">
+                        <i class="icon-angle-down">
+                        </i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="widget-content">
+                  <table class="table table-hover table-striped table-bordered table-highlight-head">
+                    <thead>
+                      <tr>
+                        <th>
+                          帐号名称
+                        </th>
+                        <th>
+                          Token
+                        </th>
+                        <th>
+                          微信号
+                        </th>
+                        <th>
+                          原始ID
+                        </th>
+                         <th>
+                          公众号类型
+                        </th>
+                         <th>
+                          邮箱
+                        </th>
+                         <th>
+                          描述
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {{range .Accounts}}
+                      <tr>
+                        <td>
+                          {{.AccountName}}
+                        </td>
+                        <td>
+                          {{.Token}}
+                        </td>
+                        <td>
+                          {{.WechatNumber}}
+                        </td>
+                        <td>
+                          {{.OldId}}
+                        </td>
+                        <td>
+                          {{.AccountType}}
+                        </td>
+                        <td>
+                          {{.Email}}
+                        </td>
+                        <td>
+                          {{.Description}}
+                        </td>                
+                      </tr>
+                      {{end}}
+                    </tbody>
+                  </table>
+                  <div class="row">
+                    <div class="table-footer">
+                      <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                          新增
+                        </button>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="pagination">
+                          <li class="disabled">
+                            <a href="javascript:void(0);">
+                              &larr; Prev
+                            </a>
+                          </li>
+                          <li class="active">
+                            <a href="javascript:void(0);">
+                              1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);">
+                              2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);">
+                              3
+                            </a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);">
+                              4
+                            </a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0);">
+                              Next &rarr;
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{{template "footer"}}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑公众账号</h4>
+      </div>
+      <div class="modal-body">
+        <form id="accountInfo">
+          <div class="form-group">
+            <label>帐号名称</label>
+            <input name="accountName" class="form-control" id="accountName" placeholder="帐号名称">
+          </div>
+          <div class="form-group">
+            <label>Token</label>
+            <input name="token" class="form-control" id="token" placeholder="Token">
+          </div>
+          <div class="form-group">
+            <label>微信号</label>
+            <input name="wechatNumber" class="form-control" id="wechatNumber" placeholder="微信号">
+          </div>
+          <div class="form-group">
+            <label>原始ID</label>
+            <input name="oldId" class="form-control" id="oldId" placeholder="原始ID">
+          </div>
+          <div class="form-group">
+            <label>公众号类型</label>
+            <input name="accountType" class="form-control" id="accountType" placeholder="公众号类型">
+          </div>
+          <div class="form-group">
+            <label>邮箱</label>
+            <input name="email" class="form-control" id="email" placeholder="邮箱">
+          </div>
+          <div class="form-group">
+            <label>描述</label>
+            <input name="description" class="form-control" id="description" placeholder="描述">
+          </div>
+          <div class="form-group">
+            <label>APPID</label>
+            <input name="appid" class="form-control" id="appid" placeholder="APPID">
+          </div>
+          <div class="form-group">
+            <label>APPSECRET</label>
+            <input name="appsecret" class="form-control" id="appsecret" placeholder="APPSECRET">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="save">保存</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button> 
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$("#save").click(function(){
+    $.ajax({
+        type: "POST",
+        url: "/weChat/accountCenter",
+        data: $("#accountInfo").serialize(),
+        success: function (data) {
+            if (data.Message == "操作成功") {
+                window.location.reload()
+            }else{
+                alert(data.Message);
+            }
+        }
+    })
+});
+</script>
