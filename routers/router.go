@@ -19,4 +19,5 @@ func init() {
 	beego.Router("wxCore", &wechatService.CoreServletController{})
 	beego.Router("textMessage", &controllers.TextMessageController{})
 	beego.Router("newsMessage", &controllers.NewsMessageController{})
+	beego.Router("newsMessageList", &controllers.NewsMessageListController{})
 }

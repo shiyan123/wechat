@@ -13,12 +13,12 @@ type SubscribeWelcomeController struct {
 func (this *SubscribeWelcomeController) Get() {
 	textMessages, err := octopus.FindAllTextMessage()
 	if err != nil {
-		this.TplNames = "textMessage.html"
+		this.TplNames = "subscribeWelcome.html"
 	}
 	this.Data["TextMessage"] = textMessages
 	welcomeMessages, err := octopus.FindWelcomeMessage()
 	if err != nil {
-		this.TplNames = "textMessage.html"
+		this.TplNames = "subscribeWelcome.html"
 	}
 	this.Data["WelcomeMessage"] = welcomeMessages
 	this.TplNames = "subscribeWelcome.html"

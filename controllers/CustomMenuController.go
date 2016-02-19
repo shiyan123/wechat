@@ -18,7 +18,6 @@ func (this *CustomMenuController) Get() {
 	}
 	this.Data["SecondMenus"] = secondMenus
 	this.Data["FirstMenus"] = firstMenus
-
 	this.TplNames = "customMenu.html"
 }
 

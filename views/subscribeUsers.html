@@ -24,40 +24,43 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {{range .SubscribeUsers}}
                   <tr>
                     <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
-                    <td>Joey</td>
-                    <td>Greyson</td>
-                    <td>joey123</td>
-                    <td>Approved</td>
-                    <td>Greyson</td>
-                    <td>Greyson</td>
-                    <td>Greyson</td>
+                    <td>{{.OpenId}}</td>
+                    <td>{{.NickName}}</td>
+                    <td>{{if eq .Sex 1}}男{{else}}女{{end}}</td>
+                    <td>{{.City}}</td>
+                    <td>{{.Province}}</td>
+                    <td>{{.Country}}</td>
+                    <td>
+                      <img src="{{.Headimgurl}}" alt="Headimg" class="img-circle" id="headimg" style="width:50px;height:50px" />
+                    </td>
                   </tr>
-                  <tr>
-                    <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
-                    <td>Joey</td>
-                    <td>Greyson</td>
-                    <td>joey123</td>
-                    <td>Approved</td>
-                    <td>Greyson</td>
-                    <td>Greyson</td>
-                    <td>Greyson</td>
-                  </tr>
-                  <tr>
-                    <td class="checkbox-column"><input type="checkbox" class="uniform"></td>
-                    <td>Joey</td>
-                    <td>Greyson</td>
-                    <td>joey123</td>
-                    <td>Approved</td>
-                    <td>Greyson</td>
-                    <td>Greyson</td>
-                    <td>Greyson</td>
-                  </tr>
+                  {{end}}
                 </tbody>
               </table>
             </div>
+            <div class="widget-content">
+              <button type="button" class="btn btn-primary" id="getSubscribeUserList">拉取用户列表</button>
+            </div>            
           </div>
         </div>
 </div>
 {{template "footer"}}
+<script type="text/javascript">
+$("#getSubscribeUserList").click(function(){
+    $.ajax({
+        type: "PUT",
+        url: "/weChat/subscribeUsers",
+        data: "",
+        success: function (data) {
+            if (data.Message == "操作成功") {
+                window.location.reload()
+            }else{
+                alert(data.Message);
+            }
+        }
+    })
+});
+</script>
